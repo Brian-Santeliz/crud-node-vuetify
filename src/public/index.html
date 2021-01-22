@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/vuetify.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUS VUEJS | Nodejs</title>
+  </head>
+  <body>
+    <div id="main">
+      <v-app>
+        <v-container>
+          <v-simple-table class="mt-5">
+            <template v-slot:default>
+              <thead>
+                <tr class="teal">
+                  <th class="">Titulo</th>
+                  <th class="">Autor</th>
+                  <th class="">Año</th>
+                  <th class="">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="articulo in articulos" :key="articulo.id">
+                  <td>{{ articulo.descripcion }}</td>
+                  <td>{{ articulo.precio }}</td>
+                  <td>{{ articulo.stock }}</td>
+                  <td>
+                    <v-btn
+                      class="teal accent-4"
+                      dark
+                      @click="formEditar(articulo.id, articulo.descripcion, articulo.precio, articulo.stock)"
+                      >Editar</v-btn
+                    >
+                    <v-btn class="error" dark @click="borrar(articulo.id)"
+                      >Borrar</v-btn
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+          <v-container>
+            <v-row>
+              <v-col md="12">
+                <v-btn @click="modal()" class="" fab dark color="teal">
+                  <v-icon dark> mdi-plus </v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-container>
+      </v-app>
+    </div>
+    <script src="./assets/vue.js"></script>
+    <script src="./assets/vuetify.js"></script>
+    <script src="index.js"></script>
+    <script>
+      new Vue({
+        vuetify: new Vuetify(),
+        el: "#main",
+        data() {
+          return {
+            mensaje: "Mundo",
+            articulos: [
+              {
+                id: 1,
+                descripcion: "ejemplo",
+                precio: 212,
+                stock: 232,
+              },
+              {
+                id: 1,
+                descripcion: "ejemplo",
+                precio: 212,
+                stock: 232,
+              },
+              {
+                id: 1,
+                descripcion: "ejemplo",
+                precio: 212,
+                stock: 232,
+              },
+            ],
+          };
+        },
+      });
+    </script>
+  </body>
+</html>
