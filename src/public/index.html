@@ -12,11 +12,18 @@
     <title>CRUD Vuejs | Nodejs</title>
   </head>
   <body>
+    <header class="header  col-auto">
+      <h1 class="header-title">Crud Vuejs & Nodejs</h1>
+    </header>
     <div id="main">
       <v-app>
         <v-container>
           <v-simple-table class="mt-5">
             <template v-slot:default>
+              <section v-if="!articulos.length">
+                <p class="text-center text-h4">Base de datos vacia</p>
+              </section>
+              <section v-else>
               <thead>
                 <tr class="teal">
                   <th class="white--text">Titulo</th>
@@ -43,6 +50,7 @@
                   </td>
                 </tr>
               </tbody>
+            </section>
             </template>
           </v-simple-table>
           <v-container>
@@ -68,54 +76,6 @@
     <script src="./assets/vue.js"></script>
     <script src="./assets/vuetify.js"></script>
     <script src="index.js"></script>
-    <script>
-      const endPoint = "/api/libros";
-      new Vue({
-        vuetify: new Vuetify(),
-        el: "#main",
-        data() {
-          return {
-            articulos: [
-              {
-                id: 2,
-                descripcion: "ejemplo",
-                precio: 212,
-                stock: 232,
-              },
-              {
-                id: 3,
-                descripcion: "ejemplo",
-                precio: 212,
-                stock: 232,
-              },
-              {
-                id: 4,
-                descripcion: "ejemplo",
-                precio: 212,
-                stock: 232,
-              },
-            ],
-            isModalOpen: false,
-          };
-        },
-        created() {
-          this.getData();
-        },
-        methods: {
-          getData: async function () {
-            try {
-              const res = await fetch(endPoint);
-              const data = await res.json();
-              this.articulos = data;
-            } catch (error) {
-              console.log("Ocurrio un error obteniendo la data", error);
-            }
-          },
-          openModal: function () {
-            this.isModalOpen = true;
-          },
-        },
-      });
     </script>
   </body>
 </html>
