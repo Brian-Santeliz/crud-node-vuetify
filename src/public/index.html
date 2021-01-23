@@ -9,7 +9,7 @@
     />
     <link rel="stylesheet" href="./assets/vuetify.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CRUS VUEJS | Nodejs</title>
+    <title>CRUD Vuejs | Nodejs</title>
   </head>
   <body>
     <div id="main">
@@ -34,10 +34,10 @@
                     <v-btn
                       class="teal accent-4"
                       dark
-                      @click="formEditar(articulo.id, articulo.descripcion, articulo.precio, articulo.stock)"
+                      @click="editAction(articulo.id, articulo.descripcion, articulo.precio, articulo.stock)"
                       >Editar</v-btn
                     >
-                    <v-btn class="error" dark @click="borrar(articulo.id)"
+                    <v-btn class="error" dark @click="deleteAction(articulo.id)"
                       >Borrar</v-btn
                     >
                   </td>
@@ -48,7 +48,15 @@
           <v-container>
             <v-row>
               <v-col md="12">
-                <v-btn @click="openModal()" class="" fab dark color="teal">
+                <v-btn
+                  @click="openModal()"
+                  fab
+                  dark
+                  color="teal"
+                  :fixed="true"
+                  :bottom="true"
+                  :right="true"
+                >
                   <v-icon dark> mdi-plus </v-icon>
                 </v-btn>
               </v-col>
@@ -61,32 +69,33 @@
     <script src="./assets/vuetify.js"></script>
     <script src="index.js"></script>
     <script>
+      const endPoint = "/api/libros";
       new Vue({
         vuetify: new Vuetify(),
         el: "#main",
         data() {
           return {
-            isModalOpen = false,
             articulos: [
               {
-                id: 1,
+                id: 2,
                 descripcion: "ejemplo",
                 precio: 212,
                 stock: 232,
               },
               {
-                id: 1,
+                id: 3,
                 descripcion: "ejemplo",
                 precio: 212,
                 stock: 232,
               },
               {
-                id: 1,
+                id: 4,
                 descripcion: "ejemplo",
                 precio: 212,
                 stock: 232,
               },
             ],
+            isModalOpen: false,
           };
         },
         created() {
@@ -94,13 +103,17 @@
         },
         methods: {
           getData: async function () {
-            const res = await fetch("/api/libros");
-            const data = await res.json();
-            this.articulos = data;
+            try {
+              const res = await fetch(endPoint);
+              const data = await res.json();
+              this.articulos = data;
+            } catch (error) {
+              console.log("Ocurrio un error obteniendo la data", error);
+            }
           },
-          openModal:function(){
+          openModal: function () {
             this.isModalOpen = true;
-          }
+          },
         },
       });
     </script>
