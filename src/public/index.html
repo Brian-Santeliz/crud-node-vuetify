@@ -29,21 +29,21 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="articulo in articulos" :key="articulo.id">
-                  <td>{{ articulo.descripcion }}</td>
-                  <td>{{ articulo.precio }}</td>
-                  <td>{{ articulo.stock }}</td>
+                <tr v-for="libro in libros" :key="libro.id">
+                  <td>{{ libro.titulo }}</td>
+                  <td>{{ libro.autor }}</td>
+                  <td>{{ libro.año }}</td>
                   <td>
                     <v-btn
                       class="teal accent-4"
                       dark
-                      @click="editAction(articulo.id, articulo.descripcion, articulo.precio, articulo.stock)"
+                      @click="editAction(libro.id, libro.descripcion, libro.precio, libro.stock)"
                       >
                       <v-icon>
                         mdi-folder-edit
                       </v-icon>
                       </v-btn>
-                    <v-btn class="error"  @click="deleteAction(articulo.id)"
+                    <v-btn class="error"  @click="deleteAction(libro.id)"
                       ><v-icon>mdi-book-minus</v-icon></v-btn
                     >
                   </td>
@@ -84,11 +84,20 @@
           </v-card-title>
           <v-card-text>
             <v-container>
+              <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+              >
               <v-row>
                 <v-col
                   cols="12"
                 >
                   <v-text-field
+                  
+                   :rules="rules"
+                   :counter="10"
+                  v-model="titulo"
                     label="Ingrese el Titulo del Libro*"
                     required
                     hint="Por ejemplo: El Alquimista"
@@ -98,7 +107,10 @@
                   cols="12"
                 >
                   <v-text-field
-                    label="Ingrese el Autor del Libro"
+                  :rules="rules"
+                  :counter="10"
+                  v-model="autor"
+                    label="Ingrese el Autor del Libro*"
                     hint="Por Ejemplo: Paul Cohelo"
                   ></v-text-field>
                 </v-col>
@@ -106,30 +118,35 @@
                   cols="12"
                 >
                   <v-text-field
+                  :rules="rules"
+                  :counter="4"
+                  v-model="anio"
                     label="Año del Libro*"
                     hint="Por ejemplo: 1988"
-                    required
+                    required="required"
+                    hide-details="auto"
                     type="number"
                   ></v-text-field>
                 </v-col>
                
               </v-row>
+            </v-form>
             </v-container>
-            <small>* Todos los campos son requeridos</small>
+            <small>Todos los campos * son requeridos</small>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
               color="blue darken-1"
               text
-              @click="dialog = false"
+              @click="closeModal()"
             >
               Cerrar
             </v-btn>
             <v-btn
               color="blue darken-1"
               text
-              @click="dialog = false"
+              @click="actionButton()"
             >
               Guardar
             </v-btn>
