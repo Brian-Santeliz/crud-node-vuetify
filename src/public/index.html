@@ -70,6 +70,74 @@
           </v-container>
         </v-container>
       </v-app>
+    
+    
+      <v-row justify="center">
+      <v-dialog
+        v-model="isModalOpen"
+        persistent
+        max-width="600px"
+      >
+        <v-card>
+          <v-card-title>
+            <span class="headline">Administrador De Libros</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col
+                  cols="12"
+                >
+                  <v-text-field
+                    label="Ingrese el Titulo del Libro*"
+                    required
+                    hint="Por ejemplo: El Alquimista"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                >
+                  <v-text-field
+                    label="Ingrese el Autor del Libro"
+                    hint="Por Ejemplo: Paul Cohelo"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  cols="12"
+                >
+                  <v-text-field
+                    label="Año del Libro*"
+                    hint="Por ejemplo: 1988"
+                    required
+                    type="number"
+                  ></v-text-field>
+                </v-col>
+               
+              </v-row>
+            </v-container>
+            <small>* Todos los campos son requeridos</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="dialog = false"
+            >
+              Cerrar
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="dialog = false"
+            >
+              Guardar
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
+    
     </div>
     <script src="./assets/vue.js"></script>
     <script src="./assets/vuetify.js"></script>

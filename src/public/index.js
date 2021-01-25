@@ -25,6 +25,7 @@ new Vue({
         },
       ],
       isModalOpen: false,
+      actions: null,
     };
   },
   created() {
@@ -42,6 +43,7 @@ new Vue({
     },
     openModal: function () {
       this.isModalOpen = true;
+      this.actions = "create";
     },
   },
 });
