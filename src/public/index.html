@@ -20,10 +20,6 @@
         <v-container>
           <v-simple-table class="mt-5">
             <template v-slot:default>
-              <section v-if="!articulos.length">
-                <p class="text-center text-h4">Base de datos vacia</p>
-              </section>
-              <section v-else>
               <thead>
                 <tr class="teal">
                   <th class="white--text">Titulo</th>
@@ -42,15 +38,17 @@
                       class="teal accent-4"
                       dark
                       @click="editAction(articulo.id, articulo.descripcion, articulo.precio, articulo.stock)"
-                      >Editar</v-btn
-                    >
-                    <v-btn class="error" dark @click="deleteAction(articulo.id)"
-                      >Borrar</v-btn
+                      >
+                      <v-icon>
+                        mdi-folder-edit
+                      </v-icon>
+                      </v-btn>
+                    <v-btn class="error"  @click="deleteAction(articulo.id)"
+                      ><v-icon>mdi-book-minus</v-icon></v-btn
                     >
                   </td>
                 </tr>
               </tbody>
-            </section>
             </template>
           </v-simple-table>
           <v-container>
