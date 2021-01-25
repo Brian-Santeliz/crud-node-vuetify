@@ -67,5 +67,18 @@ new Vue({
         console.log("Ocurrio un error enviando la data", error);
       }
     },
+    deleteAction: async function (id) {
+      try {
+        await fetch(`${endPoint}/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        await this.getData();
+      } catch (error) {
+        console.log("Ocurrio un error eliminando la data", error);
+      }
+    },
   },
 });
