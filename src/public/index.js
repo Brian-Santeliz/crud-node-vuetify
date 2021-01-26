@@ -104,6 +104,12 @@ new Vue({
         año: this.anio,
       };
       try {
+        if (
+          this.autor.trim() === "" ||
+          this.titulo.trim() === "" ||
+          this.anio.trim() === ""
+        )
+          return;
         await fetch(`${endPoint}/${this.id}`, {
           method: "PUT",
           headers: {
