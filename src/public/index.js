@@ -8,6 +8,7 @@ new Vue({
       libros: [],
       isModalOpen: false,
       actions: null,
+      id: null,
       titulo: "",
       autor: "",
       anio: "",
@@ -43,16 +44,22 @@ new Vue({
       this.resetValidation();
     },
     actionButton: function () {
-      this.actions = 1 ? this.saveBook() : null;
+      this.actions === 1 ? this.saveBook() : this.updateBook();
       this.isModalOpen = false;
     },
     saveBook: async function () {
-      const data = {
-        autor: this.autor,
-        titulo: this.titulo,
-        año: this.anio,
-      };
       try {
+        if (
+          this.autor.trim() === "" ||
+          this.titulo.trim() === "" ||
+          this.anio.trim() === ""
+        )
+          return;
+        const data = {
+          autor: this.autor,
+          titulo: this.titulo,
+          año: this.anio,
+        };
         await fetch(endPoint, {
           method: "POST",
           headers: {
@@ -76,8 +83,40 @@ new Vue({
           },
         });
         await this.getData();
+        this.resetValidation();
       } catch (error) {
         console.log("Ocurrio un error eliminando la data", error);
+      }
+    },
+    editAction: function (...data) {
+      const [id, titulo, autor, anio] = data;
+      this.isModalOpen = true;
+      this.actions = 2;
+      this.anio = anio;
+      this.titulo = titulo;
+      this.autor = autor;
+      this.id = id;
+    },
+    updateBook: async function () {
+      const data = {
+        autor: this.autor,
+        titulo: this.titulo,
+        año: this.anio,
+      };
+      try {
+        await fetch(`${endPoint}/${this.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        await this.getData();
+        (this.autor = ""), (this.anio = ""), (this.titulo = "");
+        this.resetValidation();
+      } catch (error) {
+        this.resetValidation();
+        console.log("Error actualizando la data", error);
       }
     },
   },

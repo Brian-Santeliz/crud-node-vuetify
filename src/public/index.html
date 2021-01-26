@@ -20,24 +20,31 @@
         <v-container>
           <v-simple-table class="mt-5">
             <template v-slot:default>
-              <thead>
-                <tr class="teal">
-                  <th class="white--text">Titulo</th>
-                  <th class="white--text">Autor</th>
-                  <th class="white--text">Año</th>
-                  <th class="white--text">Acción</th>
-                </tr>
+          
+              <thead >
+
+                  <tr class="teal"  >
+                    <th class="white--text">Titulo</th>
+                    <th class="white--text">Autor</th>
+                    <th class="white--text">Año</th>
+                    <th class="white--text">Acción</th>
+                  </tr>
               </thead>
               <tbody>
-                <tr v-for="libro in libros" :key="libro.id">
-                  <td>{{ libro.titulo }}</td>
-                  <td>{{ libro.autor }}</td>
-                  <td>{{ libro.año }}</td>
-                  <td>
+                <section v-if="!libros.length" class="mt-12">
+                  <p class="text-center text-h5">
+                    No hay Libros para mostrar
+                  </p>
+                </section>
+                  <tr v-for="libro in libros" :key="libro.id" >
+                    <td>{{ libro.titulo }}</td>
+                    <td>{{ libro.autor }}</td>
+                    <td>{{ libro.año }}</td>
+                    <td>
                     <v-btn
                       class="teal accent-4"
                       dark
-                      @click="editAction(libro.id, libro.descripcion, libro.precio, libro.stock)"
+                      @click="editAction(libro.id, libro.titulo, libro.autor, libro.año)"
                       >
                       <v-icon>
                         mdi-folder-edit
@@ -48,6 +55,7 @@
                     >
                   </td>
                 </tr>
+
               </tbody>
             </template>
           </v-simple-table>
