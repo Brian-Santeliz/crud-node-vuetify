@@ -94,7 +94,7 @@ new Vue({
                 "Content-Type": "application/json",
               },
             });
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            Swal.fire("Eliminado", "Libro eliminado correctamente!", "success");
             await this.getData();
           }
         });
@@ -131,6 +131,7 @@ new Vue({
           },
           body: JSON.stringify(data),
         });
+        Swal.fire("Actualizado", "Libro actualizado correctamente!", "success");
         await this.getData();
         (this.autor = ""), (this.anio = ""), (this.titulo = "");
         this.resetValidation();
