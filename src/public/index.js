@@ -67,6 +67,7 @@ new Vue({
           },
           body: JSON.stringify(data),
         });
+        Swal.fire("Guardado!", "Libro agregado correctamente!", "success");
         await this.getData();
         this.resetValidation();
         (this.autor = ""), (this.anio = ""), (this.titulo = "");
@@ -74,16 +75,29 @@ new Vue({
         console.log("Ocurrio un error enviando la data", error);
       }
     },
-    deleteAction: async function (id) {
+    deleteAction: function (id) {
       try {
-        await fetch(`${endPoint}/${id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
+        Swal.fire({
+          title: "Eliminar",
+          text: "Esta seguro!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          cancelButtonText: "Cancelar",
+          confirmButtonText: "Eliminar",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            await fetch(`${endPoint}/${id}`, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            await this.getData();
+          }
         });
-        await this.getData();
-        this.resetValidation();
       } catch (error) {
         console.log("Ocurrio un error eliminando la data", error);
       }
