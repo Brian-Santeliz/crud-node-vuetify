@@ -79,7 +79,7 @@ new Vue({
       try {
         Swal.fire({
           title: "Eliminar",
-          text: "Esta seguro!",
+          text: "¿Está seguro en eliminar este libro?",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
